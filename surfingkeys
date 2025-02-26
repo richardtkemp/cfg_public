@@ -39,8 +39,10 @@ api.map('p', 'cc')
 // n used to be go to next search match
 api.map('n', 'E')
 
+// i used to be go to input field, moving that to ga. Useful for google docs.
+api.map('ga', 'i')
+
 // Go one tab right
-// i used to be go to input field
 api.map('i', 'R')
 
 // half page down
