@@ -14,19 +14,9 @@ api.mapkey('j', 'send by join to 9t', function() {
 		+ '&deviceId=xxxxxx&apikey=yyyyyy' ;
 })
 
-// Find next text match in visual
-api.vmapkey('k', "next match", function() {
-	api.Visual.Next(false)
-})
-// Find prev text match in visual
-api.vmapkey('K', "prev match", function() {
-	api.visual.Next(true)
-})
-//mapkey('N', '#9Previous found text', 'Visual.next(true)');
-// Next find match TODO why disabled?
-//api.vmap('k', 'n')
-//api.vmap('K', 'N')
-
+// Find text match in visual
+api.vmap('k', 'n')
+api.vmap('K', 'N')
 
 // Copy current page title by 't' mnemonic
 api.map('yt', 'yl')
