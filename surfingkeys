@@ -1,0 +1,241 @@
+//api.imap(',,', "<Esc>");	// press comma twice to leave current input box.
+settings.focusFirstCandidate=false;
+
+api.Hints.setCharacters("arstdneo");
+// Where to put the hint popup in hint mode
+settings.hintAlign="left"
+
+api.mapkey('l', 'Restore closed tab', 'RUNTIME("openLast")');
+
+api.mapkey('j', 'send by join to 9t', function() {
+	var img = new Image(1,1);
+	img.src = 'https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?url='
+		+ encodeURIComponent(document.URL)
+		+ '&deviceId=xxxxxx&apikey=yyyyyy' ;
+})
+
+// Find next text match in visual
+api.vmapkey('k', "next match", function() {
+	api.Visual.Next(false)
+})
+// Find prev text match in visual
+api.vmapkey('K', "prev match", function() {
+	api.visual.Next(true)
+})
+//mapkey('N', '#9Previous found text', 'Visual.next(true)');
+// Next find match TODO why disabled?
+//api.vmap('k', 'n')
+//api.vmap('K', 'N')
+
+
+// Copy current page title by 't' mnemonic
+api.map('yt', 'yl')
+
+// Open page from clipboard
+// p used to be ephemeral passthrough
+api.map('p', 'cc')
+
+// Go one tab left
+// n used to be go to next search match
+api.map('n', 'E')
+
+// Go one tab right
+// i used to be go to input field
+api.map('i', 'R')
+
+// half page down
+// e used to be go up
+api.map('e', 'd')
+
+// close tab
+// d used to be go down
+api.map('d', 'x')
+
+// Show buffers with b
+// b used to show bookmarks in omnibar
+api.map('b', 'T')
+
+// back in history
+api.map('N', 'S')
+
+// forward in history
+api.map('I', 'D')
+
+
+const TST_ID = 'treestyletab@piro.sakura.ne.jp';
+async function registerToTST() {
+	try {
+	let result = await browser.runtime.sendMessage(TST_ID, {
+		type: 'register-self',
+		// The name of your addon (string, optional)
+		name: browser.i18n.getMessage('extensionName'),
+		// Icons (used for extra context menu items, works on TST 2.4.18 and later)
+		icons: browser.runtime.getManifest().icons, // { '16': '/path/to/icon.png', 24: '...', ... }
+		// The list of listening message types (array of string)
+		listeningTypes: ['tab-mousedown', 'tab-mouseup'],
+		// Extra style rules applied in the sidebar (string, optional)
+		style: `
+			.tab.unread {
+			color: red;
+			}
+		`,
+		// Extra permissions to receive tab information via TST's API (works on TST 3.0.12 and later)
+		permissions: ['tabs']
+	});
+	}
+	catch(e) {
+	// TST is not available
+	}
+}
+registerToTST();
+
+// Use treestyletabs API to move tab up
+api.mapkey('cu', "Move tab up", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type:		'move-up',
+	tab:		'current', // required, tabs.Tab.id or alias
+	followChildren: false // optional, boolean (default=false)
+})
+})
+// Use treestyletabs API to move tab down
+api.mapkey('ce', "Move tab down", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type:		'move-down',
+	tab:		'current', // required, tabs.Tab.id or alias
+	followChildren: false // optional, boolean (default=false)
+})
+})
+// Use treestyletabs API to move tab to top
+api.mapkey('cU', "Move tab to top", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type: 'move-to-start',
+	tab:	'highlighted', // required, tabs.Tab.id or alias
+})
+})
+// Use treestyletabs API to move tab to bottom
+api.mapkey('cE', "Move tab to bottom", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type: 'move-to-end',
+	tab:	'highlighted', // required, tabs.Tab.id or alias
+})
+})
+// Use treestyletabs API to indent the current tab
+api.mapkey('ci', "demote current tab", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type:		'demote',
+	tab:		'current', // required, tabs.Tab.id or alias
+	followChildren: false
+})
+})
+// Use treestyletabs API to indent the current tab
+api.mapkey('cn', "promote current tab", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type:		'promote',
+	tab:		'current', // required, tabs.Tab.id or alias
+	followChildren: false
+})
+})
+// Use treestyletabs API to indent the current tab and tree
+api.mapkey('cI', "demote current tab and tree", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type:		'demote',
+	tab:		'current', // required, tabs.Tab.id or alias
+	followChildren: true
+})
+})// Use treestyletabs API to indent the current tab and tree
+api.mapkey('cN', "promote current tab and tree", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type:		'promote',
+	tab:		'current', // required, tabs.Tab.id or alias
+	followChildren: true
+})
+})
+// Use treestyletabs API to toggle collapsing this tree
+api.mapkey('cc', "toggle collapse of current tree", function() {
+	browser.runtime.sendMessage(TST_ID, {
+	type: 'toggle-tree-collapsed',
+	tab:	'current' // required, tabs.Tab.id or alias
+})
+})
+
+
+// Whether to put cursor at end of input when entering an input box, by false to put the cursor where it was when focus was removed from the input.
+settings.cursorAtEndOfInput="true"
+api.mapkey('gn', '#4Go to last used tab', function() {
+	RUNTIME("goToLastTab");
+});
+
+
+api.addSearchAlias('deb',	'debian pkgs',	'https://packages.debian.org/search?searchon=names&suite=all&section=all&keywords=');
+api.addSearchAlias('ali',	'aliexpress',	'https://www.aliexpress.com/wholesale?SearchText=');
+api.addSearchAlias('w',		'wikipedia',	'https://en.wikipedia.org/w/index.php?search=');
+api.addSearchAlias('mdn',	'mdn',		'https://developer.mozilla.org/en-US/search?q=');
+api.addSearchAlias('moz',	'mdn',		'https://developer.mozilla.org/en-US/search?q=');
+api.addSearchAlias('maps',	'maps',		'https://www.google.co.uk/maps/search/?q=');
+api.addSearchAlias('gr',	'goodreads',	'https://www.goodreads.com/search?q=');
+api.addSearchAlias('dev',	'deviantart',	'https://www.deviantart.com/search?q=');
+api.addSearchAlias('ama',	'amazon',	'https://www.amazon.co.uk/s?k=');
+api.addSearchAlias('ebay',	'ebay',		'https://www.ebay.co.uk/sch/i.html?_nkw=');
+api.addSearchAlias('anon',	'myanonamouse', 'https://www.myanonamouse.net/tor/browse.php?tor%5Btext%5D=');
+api.addSearchAlias('y',		'youtube',	'https://www.youtube.com/results?search_query=');
+api.addSearchAlias('pp',	'pirateproxy',	'http://ukpiratebayproxy.com/search/');
+api.addSearchAlias('zo',	'zooqle',	'https://zooqle.nocensor.biz/search?q=');
+api.addSearchAlias('imdb',	'imdb',		'https://www.imdb.com/find?q=');
+api.addSearchAlias('n',		'netflix',	'https://www.netflix.com/search?q=');
+api.addSearchAlias('gg',	'google lucky',	'https://www.google.co.uk/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&btnI=Im+Feeling+Lucky&q=');
+api.addSearchAlias('g',		'google',	'https://www.google.co.uk/search?q=-site:pinterest.* ', 's', 'https://www.google.co.uk/complete/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&q=', function(response) {
+	var res = JSON.parse(response.text);	return res[1];
+});
+api.addSearchAlias('gi',	'google images','https://www.google.com/search?tbm=isch&q=-site:pinterest.* ', 's', 'https://www.google.co.uk/complete/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&q=', function(response) {
+	var res = JSON.parse(response.text);	return res[1];
+});
+api.addSearchAlias('r',	'reddit',		'https://www.google.co.uk/search?q=site:reddit.com ', 's', 'https://www.google.co.uk/complete/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&q=', function(response) {
+	var res = JSON.parse(response.text);	return res[1];
+});
+api.addSearchAlias('wormg',	'worm google',	'https://www.google.co.uk/search?q=site:https://parahumans.wordpress.com/+');
+api.addSearchAlias('wardg',	'ward google',	'https://www.google.co.uk/search?q=site:https://www.parahumans.net/+');
+api.addSearchAlias('worm',	'worm',		'https://parahumans.wordpress.com/?s=');
+api.addSearchAlias('ward',	'ward',		'https://www.parahumans.net/?s=');
+api.addSearchAlias('ww',	'worm wiki',	'https://worm.fandom.com/wiki/Special:Search?query=');
+api.addSearchAlias('wg',	'worm wik goog','https://www.google.co.uk/search?q=site:https://worm.fandom.com+');
+api.addSearchAlias('fa',	'facebook',	'https://www.facebook.com/search/top/?q=');
+api.addSearchAlias('p',		'perplexity',	'https://www.perplexity.ai/search/?q=');
+
+// set theme
+settings.theme = `
+.sk_theme {
+	font-family: Input Sans Condensed, Charcoal, sans-serif;
+	font-size: 10pt;
+	background: #24272e;
+	color: #abb2bf;
+}
+.sk_theme tbody {
+	color: #fff;
+}
+.sk_theme input {
+	color: #d0d0d0;
+}
+.sk_theme .url {
+	color: #61afef;
+}
+.sk_theme .annotation {
+	color: #56b6c2;
+}
+.sk_theme .omnibar_highlight {
+	color: #528bff;
+}
+.sk_theme .omnibar_timestamp {
+	color: #e5c07b;
+}
+.sk_theme .omnibar_visitcount {
+	color: #98c379;
+}
+.sk_theme #sk_omnibarSearchResult>ul>li:nth-child(odd) {
+	background: #303030;
+}
+.sk_theme #sk_omnibarSearchResult>ul>li.focused {
+	background: #3e4452;
+}
+#sk_status, #sk_find {
+	font-size: 20pt;
+}`;
