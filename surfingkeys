@@ -5,6 +5,9 @@ api.Hints.setCharacters("arstdneo");
 // Where to put the hint popup in hint mode
 settings.hintAlign="left"
 
+// Lurk mode on Google Docs and Sheets (reactivate with Alt-i)
+settings.lurkPattern = /^https?:\/\/(docs|sheets)\.google\.com/;
+
 api.mapkey('l', 'Restore closed tab', 'RUNTIME("openLast")');
 
 // Find text match in visual
