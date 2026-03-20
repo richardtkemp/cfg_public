@@ -154,20 +154,16 @@ api.mapkey('gn', '#4Go to last used tab', function() {
 });
 
 
-api.addSearchAlias('deb',	'debian pkgs',	'https://packages.debian.org/search?searchon=names&suite=all&section=all&keywords=');
 api.addSearchAlias('ali',	'aliexpress',	'https://www.aliexpress.com/wholesale?SearchText=');
 api.addSearchAlias('w',		'wikipedia',	'https://en.wikipedia.org/w/index.php?search=');
 api.addSearchAlias('mdn',	'mdn',		'https://developer.mozilla.org/en-US/search?q=');
 api.addSearchAlias('moz',	'mdn',		'https://developer.mozilla.org/en-US/search?q=');
 api.addSearchAlias('maps',	'maps',		'https://www.google.co.uk/maps/search/?q=');
 api.addSearchAlias('gr',	'goodreads',	'https://www.goodreads.com/search?q=');
-api.addSearchAlias('dev',	'deviantart',	'https://www.deviantart.com/search?q=');
 api.addSearchAlias('ama',	'amazon',	'https://www.amazon.co.uk/s?k=');
 api.addSearchAlias('ebay',	'ebay',		'https://www.ebay.co.uk/sch/i.html?_nkw=');
 api.addSearchAlias('anon',	'myanonamouse', 'https://www.myanonamouse.net/tor/browse.php?tor%5Btext%5D=');
 api.addSearchAlias('y',		'youtube',	'https://www.youtube.com/results?search_query=');
-api.addSearchAlias('pp',	'pirateproxy',	'http://ukpiratebayproxy.com/search/');
-api.addSearchAlias('zo',	'zooqle',	'https://zooqle.nocensor.biz/search?q=');
 api.addSearchAlias('imdb',	'imdb',		'https://www.imdb.com/find?q=');
 api.addSearchAlias('n',		'netflix',	'https://www.netflix.com/search?q=');
 api.addSearchAlias('gg',	'google lucky',	'https://www.google.co.uk/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&btnI=Im+Feeling+Lucky&q=');
@@ -180,12 +176,6 @@ api.addSearchAlias('gi',	'google images','https://www.google.com/search?tbm=isch
 api.addSearchAlias('r',	'reddit',		'https://www.google.co.uk/search?q=site:reddit.com ', 's', 'https://www.google.co.uk/complete/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&q=', function(response) {
 	var res = JSON.parse(response.text);	return res[1];
 });
-api.addSearchAlias('wormg',	'worm google',	'https://www.google.co.uk/search?q=site:https://parahumans.wordpress.com/+');
-api.addSearchAlias('wardg',	'ward google',	'https://www.google.co.uk/search?q=site:https://www.parahumans.net/+');
-api.addSearchAlias('worm',	'worm',		'https://parahumans.wordpress.com/?s=');
-api.addSearchAlias('ward',	'ward',		'https://www.parahumans.net/?s=');
-api.addSearchAlias('ww',	'worm wiki',	'https://worm.fandom.com/wiki/Special:Search?query=');
-api.addSearchAlias('wg',	'worm wik goog','https://www.google.co.uk/search?q=site:https://worm.fandom.com+');
 api.addSearchAlias('fa',	'facebook',	'https://www.facebook.com/search/top/?q=');
 api.addSearchAlias('p',		'perplexity',	'https://www.perplexity.ai/search/?q=');
 
