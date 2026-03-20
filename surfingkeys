@@ -7,13 +7,6 @@ settings.hintAlign="left"
 
 api.mapkey('l', 'Restore closed tab', 'RUNTIME("openLast")');
 
-api.mapkey('j', 'send by join to 9t', function() {
-	var img = new Image(1,1);
-	img.src = 'https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?url='
-		+ encodeURIComponent(document.URL)
-		+ '&deviceId=xxxxxx&apikey=yyyyyy' ;
-})
-
 // Find text match in visual
 api.vmap('k', 'n')
 api.vmap('K', 'N')
